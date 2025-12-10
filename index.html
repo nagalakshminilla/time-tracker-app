@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>AI Time Tracker — Daily Analytics</title>
+	<link rel="stylesheet" href="styles.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div id="app" class="container">
+		<header class="topbar">
+			<h1 class="logo">AI Time Tracker</h1>
+			<div id="auth-area">
+				<button id="btn-signin" class="btn">Sign in</button>
+				<button id="btn-signout" class="btn hidden">Sign out</button>
+			</div>
+		</header>
+
+		<main>
+			<section id="landing" class="card center">
+				<h2>Welcome</h2>
+				<p>Log activities, reach 24 hours and analyse your day with beautiful charts.</p>
+				<button id="btn-start" class="btn primary">Get Started</button>
+			</section>
+
+			<section id="app-area" class="hidden">
+				<div class="row">
+					<div class="card col-left">
+						<div class="row spaced">
+							<label for="date-picker">Select date</label>
+							<input id="date-picker" type="date" />
+						</div>
+
+						<div id="remaining" class="muted">You have 1440 minutes for this day.</div>
+						<div class="progress-wrap">
+							<div class="progress">
+								<div id="progress-bar" class="progress-bar"></div>
+							</div>
+							<div id="total-minutes" class="muted">0 / 1440 min</div>
+						</div>
+
+						<form id="add-activity-form" class="form">
+							<div class="form-group">
+								<label for="activity-title">Activity Title</label>
+								<input id="activity-title" type="text" placeholder="e.g. Sleep, Exercise, Work" required />
+							</div>
+							<div class="form-group">
+								<label for="activity-category">Category</label>
+								<input id="activity-category" type="text" placeholder="e.g. Work, Study, Sleep, Health" />
+							</div>
+							<div class="form-group">
+								<label for="activity-minutes">Duration (minutes)</label>
+								<input id="activity-minutes" type="number" min="1" max="1440" placeholder="0 - 1440" required />
+							</div>
+							<div class="form-actions">
+								<button id="btn-add-activity" class="btn primary" type="submit">Add Activity</button>
+								<button id="btn-clear" class="btn" type="button">Clear</button>
+							</div>
+						</form>
+
+						<div id="activities-list"></div>
+
+						<div class="actions">
+							<button id="btn-analyse" class="btn success" disabled>Analyse</button>
+						</div>
+					</div>
+
+					<div class="card col-right" id="dashboard">
+						<h3 id="dashboard-title">Analytics</h3>
+						<div id="no-data" class="no-data hidden">
+							<img src="assets/no-data.svg" alt="No data" />
+							<h4>No data available</h4>
+							<p>Log your first activity to see analytics for this date.</p>
+							<button id="cta-log-now" class="btn primary">Start logging your day now</button>
+						</div>
+						<div id="dashboard-content" class="hidden">
+							<div class="summary">
+								<div><strong id="total-hours">0</strong> hours logged</div>
+								<div><span id="num-activities">0</span> activities</div>
+							</div>
+							<div style="margin:12px 0">
+								<canvas id="chart-pie" width="400" height="280"></canvas>
+							</div>
+							<div id="category-breakdown"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer class="footer muted">Built with Firebase + Chart.js • AI-assisted UI</footer>
+	</div>
+
+	<!-- Firebase (compat) SDKs: replace with modular imports if preferred -->
+	<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+	<!-- Chart.js -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<script src="firebase-config.template.js"></script>
+	<script src="app.js"></script>
+</body>
+</html>
+
